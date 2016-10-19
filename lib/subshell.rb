@@ -12,7 +12,7 @@ module Subshell
       strip_whitespace: true,           # strip whitespace from the command's output.
       logger: defined?(Rails.logger) ? Rails.logger : nil,  # logger to use.  defaults to Rails logger (if available) or nil.
       debug: false,                     # print debug output to STDOUT.  does not affect logger output.
-      quiet: true                       # disable logger and STDOUT logging.  useful to suppress sensitive data from being logged.
+      quiet: false                      # disable logger and STDOUT logging.  useful to suppress sensitive data from being logged.
   }
 
   class << self
@@ -31,7 +31,7 @@ module Subshell
       end
     end
 
-    def set_default_options(options)
+    def set_defaults(options)
       @default_options.merge!(options)
     end
 
