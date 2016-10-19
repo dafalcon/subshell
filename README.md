@@ -1,8 +1,35 @@
 # Subshell
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/subshell`. To experiment with that code, run `bin/console` for an interactive prompt.
+This gem makes it easy to run shell commands from within ruby.  It will 
+raise an exception if the command fails with an unexpected exit status.  
+By default it automatically redirects STDERR to STDOUT when executing the 
+command.  The return value is the output of the command with whitespace
+automatically stripped.
+   
+Example usage:
+```ruby
+Subshell.exec 'echo hello world'                          # => "hello world"
+Subshell.exec 'echo hello world', strip_whitespace: false # => "hello world\n"
+Subshell.exec 'exit 1'                                    # => raises RuntimeError
+```
 
-TODO: Delete this and the text above, and describe your gem
+## Options
+
+|Option|Default|Description|
+|------|-------|-----------|
+| redirect_stderr_to_stdout | true | append 2>&1 to the command |
+| expected_status | 0 | raise if the exit status of the command does not equal this value |
+| strip_whitespace | true | strip whitespace from the command's output |
+| logger | Rails logger (if available) or nil | log debug info, if set |
+| debug | false | print debug info to STDOUT.  does not affect logger output |
+| quiet | false | disable logger and STDOUT logging.  useful to suppress sensitive or verbose data from being logged |
+
+These options can be set per call.  For convenience, the defaults can be changed with a call to Subshell.setdefaults:
+ 
+```
+Subshell.set_defaults(strip_whitespace: false)
+Subshell.exec 'echo hello world'                 # => 'hello world\n'
+```
 
 ## Installation
 
@@ -20,20 +47,13 @@ Or install it yourself as:
 
     $ gem install subshell
 
-## Usage
-
-TODO: Write usage instructions here
-
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/subshell. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
+Bug reports and pull requests are welcome on GitHub at https://github.com/falconed/subshell. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
