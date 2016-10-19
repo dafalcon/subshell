@@ -24,7 +24,7 @@ Subshell.exec 'exit 1'                                    # => raises RuntimeErr
 | debug | false | print debug info to STDOUT.  does not affect logger output |
 | quiet | false | disable logger and STDOUT logging.  useful to suppress sensitive or verbose data from being logged |
 
-These options can be set per call.  For convenience, the defaults can be changed with a call to Subshell.setdefaults:
+These options can be set per call.  For convenience, the defaults can be changed with a call to Subshell.set_defaults:
  
 ```
 Subshell.set_defaults(strip_whitespace: false)
