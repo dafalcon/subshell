@@ -1,8 +1,8 @@
 # Subshell
 
 This gem makes it easy to run shell commands from within ruby.  It will 
-raise an exception if the command fails with an unexpected exit status.  
-By default it automatically redirects STDERR to STDOUT when executing the 
+raise an exception if the command fails with an unexpected exit status.  By 
+default it automatically redirects STDERR to STDOUT when executing the 
 command.  The return value is the output of the command with whitespace
 automatically stripped.
    
